@@ -1,0 +1,61 @@
+# Webhooks
+
+Webhooks allows the FastLoyal system to notify yours in the case that the item won or purchased by the user on FastLoyal is an item available on your platform.
+This item can be anything, bonus, coupon code, as long as the user can receive the item on your platform and your system supports it then it can be awarded through FastLoyal.
+Webhooks are defined when creating something called a Supplier on the FastLoyal Back Office.
+
+## What is a Supplier?
+
+A Supplier is basicaly any system or physical place that you use to track and send items from on FastLoyal.
+There are two types of suppliers that can be defined withing FastLoyal, `DIGITAL` and `PHYSICAL`.
+
+### Digital Supplier
+
+- Digital Suppliers can be any created and used as a method to communicate to any system that can support the webhook call made to that supplier.
+- Digital Suppliers are defined on our Back Office with some important parameters:
+
+  - `apiUrl` - This is the base API url that FastLoyal will target when rewarding an item from this supplier.
+  - `route` - This is the route that FastLoyal will target when rewarding an item from this supplier.
+  - `apiKey` - This is the API key that FastLoyal will send in the aforementioned `X-FL-KEY`
+  - `secretKey` - This is the secret key that is used to hash data when FastLoyal sends a webhook call to the supplier.
+
+- When you are creating an item on the FastLoyal Back Office, you will tie it to a supplier, once the item is won in a raffle or purchased on the marketplace,
+the FastLoyal api will send a webhook call to the apiUrl and route of the supplier, notifying the supplier system that a certain user needs to be rewarded a certain item.
+
+#### Is My System A Supplier?
+
+- You must be thinking, should then my system, the system using the FastLoyal app be a supplier if I want to reward users on my platform, and the answer is yes!
+- This might seem odd, but what this allows you to do is create multiple suppliers for different types of awards you want to give to users on your system.
+- For example, you can define 3 routes that award Bonuses, Coupons and Discounts, you would need to create three different suppliers on the FastLoyal, which can be Bonus Supplier, Coupon Supplier and Discount Supplier for example.
+
+## Reward Callback
+
+- As mentioned before, your system if defined as a digital supplier will receive webhook calls from the FastLoyal API.
+- FastLoyal will use the data above to be able to reach the supplier, but what is the reward data then?
+- The reward (or item as we have called it up until this point) is also defined on the FastLoyal Back Office, when defining the item you have a couple of params to define to have full control of what the reward is.
+- The item parameters that need to be defined for a digital item are as follows
+
+  - `clientItemId` - this is the unique identifier of the item in your system, you can use this or not, that is up to you.
+  - `customMetadata` - this is a fully cusomizable object that can contain data that your system would need to correctly award the user with that item.
+
+### Digital Supplier Webhook request example
+
+```json
+{
+  "data": {
+    "userId": "550e8400-e29b-41d4-a716-446655440000",
+    "clientItemId": 123, // This will be returned if it was defined while creating the item
+    "customMetadata": {
+      "value": "2000", // Example of a parameter defined by you for the item being rewarded
+      "type": "BONUS",
+      "any key you want": "any value you want", // You can define as many params you want
+      ...
+    }
+  },
+  "signature": {{generated signature}}
+}
+```
+
+### How do the API Key and Secret Key defined for the base integration match the supplier ones?
+
+You can use the same api key that are defined for your base methods like '/integration/authenticate' when defining the supplier, this is normal when a system is it's own supplier.

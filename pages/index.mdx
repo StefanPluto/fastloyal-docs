@@ -1,0 +1,27 @@
+# FastLoyal
+
+Welcome to FastLoyal, a loyalty program based app that is designed to drive customer engagement and retention.
+The integration process is really simple, and it allows you to design a system based on your needs.
+
+
+If you are integrated with our `CDP` tool called `FastLoyal`, you will be able to utilize the power of this app to its full potential.
+
+## Before you start
+
+Before using the FastLoyal API you will need a way to authenticate with the API. Currently there is only one way to do so, which involves utilizing an `API Key`.
+
+The `API Key` can be fetched from our FastLoyal Back Office system, and should be sent with any request made to the platform inside the headers as:
+
+- `Authorization: 'Bearer {{API_KEY}}'`
+
+Each brand has it's own `API Key`, and comes in pair with a `Secret Key`, which will be used to create a hash value of all of the data being sent with each request.
+
+**API keys should never be used in a non-backend environment. It is your responsibility to keep your key safe.**
+
+## FastLoyal Urls
+### Staging environment
+- https://staging.plutool.com - FastLoyal Back Office
+- https://marketplace-staging.plutool.com - FastLoyal API
+### Production environment
+- https://plutool.com - FastLoyal Back Office
+- https://marketplace.plutool.com - FastLoyal API

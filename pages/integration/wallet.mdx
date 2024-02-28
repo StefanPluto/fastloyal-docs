@@ -1,0 +1,60 @@
+# Wallet
+
+The wallet is tied to each user that was created using authentication from the previous step, each user has a starting balance of zero.
+This section covers routes that can be used to increase and decrease the users balance within the FastLoyal system.
+
+## Wallet Increase
+
+There are a couple of required parameters to send:
+
+- `userId` - This is the unique identifier of a user within your system.
+- `amount` - This is the amount of tokens you would like to reward the user.
+
+### Wallet Increase request example
+
+```json
+{
+  "data": {
+    "userId": "550e8400-e29b-41d4-a716-446655440000",
+    "amount": 5000,
+  },
+  "signature": {{generated signature}}
+}
+
+```
+
+## Wallet Decrease
+
+There are a couple of required parameters to send:
+
+- `userId` - This is the unique identifier of a user within your system.
+- `amount` - This is the amount of tokens you would like to revoke from the user.
+
+### Wallet Decrease request example
+
+```json
+{
+  "data": {
+    "userId": "550e8400-e29b-41d4-a716-446655440000",
+    "amount": 5000,
+  },
+  "signature": {{generated signature}}
+}
+
+```
+
+### Valid Wallet Increase/Decrease request response data example
+
+```json
+{
+  "data": {
+    "id": 15,
+    "userId": "550e8400-e29b-41d4-a716-446655440000",
+    "amount": 5000,
+    "type": "DEPOSIT" | "WITHDRAW", // DEPOSIT in the case of wallet increase, WITHDRAW in the case of wallet decrease 
+    "createdAt": 178715697213 // Unix timestamp
+  },
+  "signature": {{generated signature}}
+}
+```
+
