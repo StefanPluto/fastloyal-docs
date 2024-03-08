@@ -20,7 +20,7 @@ const data = {
   lastName: 'Zark'
 }
 
-const signature = createHash('sha512').update(JSON.stringify(data)).update(secretKey, 'utf8').digest('hex');
+const signature = createHmac('sha512', secretKey).update(JSON.stringify(data)).digest('hex');
 
 
 // Payload example using the data above
